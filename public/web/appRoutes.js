@@ -9,7 +9,7 @@ angular.module("hackru").config(function($stateProvider, $urlRouterProvider, $lo
       url: '/',
       templateUrl: 'views/home/home.html',
       authenticate: false
-    })
+    });
 
   $locationProvider.html5Mode(true);
 });
