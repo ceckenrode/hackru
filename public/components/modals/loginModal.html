@@ -1,21 +1,25 @@
-<div id="loginModal" class="modal">
+<div id="loginModal" ng-controller="loginController" ng-init="initLogin()" class="modal modal-fixed-footer">
   <div class="modal-content">
     <h4>Login</h4>
     <div class="row">
       <form class="col s12">
         <div class="row">
-          <div class="input-field col s6">
-            <input id="userName" type="text" class="validate">
-            <label for="userName">User Name</label>
+          <div class="input-field col s12">
+            <input ng-model="email" id="email" type="email" class="validate">
+            <label for="email">email</label>
           </div>
-          <div class="input-field col s6">
-            <input id="password" type="text" class="validate">
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input ng-model="password" id="password" type="password" class="validate">
             <label for="password">Password</label>
           </div>
         </div>
-        <a class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
-        <a class="modal-action modal-close waves-effect waves-green btn-flat">Login</a>
       </form>
     </div>
-  </div>  
+  </div>
+  <div class="modal-footer">
+    <a ng-click="login()" class="modal-action modal-close waves-effect waves-green btn-flat">Login</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+  </div>
 </div>
