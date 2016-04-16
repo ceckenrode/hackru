@@ -2,8 +2,10 @@
   <div class="nav-wrapper">
     <a href="#" class="brand-logo">GeoChat</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a ng-click="openRegisterModal()">Register</a></li>
-      <li><a ng-click="openLoginModal()">Login</a></li>
+      <li><a ng-if="showLogin" ng-click="openRegisterModal()">Register</a></li>
+      <li><a ng-if="showLogin" ng-click="openLoginModal()">Login</a></li>
+      <li><a ng-if="!showLogin" ng-click="logout()">Logout</a></li>
+      {{showLogin}}
     </ul>
   </div>
 </nav>
