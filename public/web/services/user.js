@@ -38,6 +38,13 @@ angular.module("hackru").factory('UserService', ['$http', '$localStorage', '$sta
       } else {
         return false;
       }
+    },
+    currentUser: function(){
+      if ($localStorage.user) {
+        return $localStorage.user;
+      } else {
+        return false;
+      }
     }
   };
   return UserService;
