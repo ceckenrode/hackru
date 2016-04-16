@@ -1,0 +1,24 @@
+{
+  "name": "hackru",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "ceckenrode <chriseckenrode@me.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-materialize": "^0.1.3",
+    "angular-ui-router": "^0.2.18"
+  }
+}
