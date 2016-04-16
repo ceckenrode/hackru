@@ -1,4 +1,4 @@
-angular.module("jobbiesApp").config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+angular.module("hackru").config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   //
   //For any unmatched routes, redirect to /home
   $urlRouterProvider.otherwise('/');
