@@ -4,12 +4,17 @@ module.exports = function(app, passport) {
 
   //register and login routes====================================================================
   //register===================================================
-  app.post('/register', passport.authenticate('local-signup'),
-    function(req, res) {
+  // app.post('/register', passport.authenticate('local-signup'),
+  //   function(req, res) {
+  //     // If this function gets called, authentication was successful.
+  //     // `req.user` contains the authenticated user.
+  //     res.json(req.user);
+  //   }
+  // );
+  app.post('/register', function(req, res) {
       // If this function gets called, authentication was successful.
       // `req.user` contains the authenticated user.
-      res.json(req.user);
-
+      res.json(req.body.user);
     }
   );
 
