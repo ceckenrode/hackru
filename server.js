@@ -10,6 +10,9 @@ var logger = require('morgan');
 var session = require('express-session');
 var logger = require('morgan');
 var db = require('./config/db');
+var http = require('http');
+var io = require('socket.io')(http);
+var router = express.Router();
 
 
 //configuration ====================================================================
