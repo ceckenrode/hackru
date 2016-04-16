@@ -11,10 +11,11 @@ module.exports = function(app, passport) {
   //     res.json(req.user);
   //   }
   // );
-  app.post('/register', function(req, res) {
+  app.post('/register',passport.authenticate('local-signup'),function(req, res) {
+    console.log(req.body);
       // If this function gets called, authentication was successful.
       // `req.user` contains the authenticated user.
-      res.json(req.body.user);
+      res.json(req.user);
     }
   );
 
