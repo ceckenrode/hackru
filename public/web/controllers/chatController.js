@@ -74,5 +74,5 @@ $scope.sendMessage = function(){
 
   $scope.$on('$locationChangeStart', function(event){
     Socket.disconnect(true);
-  })
+  });
 }]);
