@@ -13,7 +13,7 @@ var db = require('./config/db');
 
 
 //configuration ====================================================================
-// mongoose.connect(db.url); // connect to our database
+mongoose.connect(db.url); // connect to our database
 require('./config/passport')(passport);
 
 // set up our port ==================================================================
