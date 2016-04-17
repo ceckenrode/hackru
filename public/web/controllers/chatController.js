@@ -1,5 +1,17 @@
 angular.module('hackru').controller('chatController', ['$scope', '$http', 'Socket', '$stateParams', '$geolocation', function($scope, $http, Socket, $stateParams, $geolocation) {
-  $scope.roomId = $stateParams.roomId;
+  $scope.init = function() {
+    $scope.roomId = $stateParams.roomId;
+    $http({
+      method: 'GET',
+      url: '/api/getSubRoom/' + $stateParams.subRoomId
+    }).then(function successCallback(response) {
+      console.log($stateParams.subRoomId);
+      $scope.subRoom = response.data;
+    }, function errorCallback() {
+      Materialize.toast('Something went wrong', 4000, 'red-text');
+    });
+  };
+
   Socket.connect();
 
   $scope.messages = [];

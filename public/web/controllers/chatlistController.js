@@ -8,7 +8,7 @@ angular.module('hackru').controller('chatlistController', ['$scope', '$http', 'S
       url: '/api/getSubRooms/' + $stateParams.roomId
     }).then(function successCallback(response) {
       console.log(response.data);
-      $scope.subRooms = response.data[0].subRooms
+      $scope.subRooms = response.data[0].subRooms;
     }, function errorCallback() {
       Materialize.toast('Something went wrong', 4000, 'red-text');
     });

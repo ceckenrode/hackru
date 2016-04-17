@@ -38,6 +38,18 @@ module.exports = function(app, passport) {
       res.json(docs);
     });
   });
+  app.get('/api/getSubRoom/:id', function(req, res) {
+    console.log(req.params.id);
+    SubRoom.findOne({
+      _id: req.params.id
+    }, function(err, doc){
+      if (err){
+        res.json({message: "An error has occured."});
+      }
+      console.log('here');
+      res.json(doc);
+    });
+  });
   app.post('/api/newchannel/:id', function(req, res) {
     console.log(req.body);
     console.log(req.params.id);
