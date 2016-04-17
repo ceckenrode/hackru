@@ -51,6 +51,7 @@ module.exports = function(app, passport) {
       } else {
         console.log(doc);
         console.log('going into', req.query.location);
+        res.json(doc);
       }
     });
   });

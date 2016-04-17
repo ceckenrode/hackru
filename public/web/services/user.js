@@ -45,6 +45,13 @@ angular.module("hackru").factory('UserService', ['$http', '$localStorage', '$sta
       } else {
         return false;
       }
+    },
+    updateLocation: function(location) {
+      if ($localStorage.user) {
+        $localStorage.user.location = location;
+      } else {
+        return false;
+      }
     }
   };
   return UserService;
