@@ -15,9 +15,9 @@ angular.module('hackru').controller('chatController', ['$scope', '$http', 'Socke
       method: 'GET',
       url: 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&language=en&latlng=' +position[0]+','+ position[1]
     }).then(function successCallback(response) {
-      console.log(response.data);
-    }, function errorCallback(response) {
-      console.log("error");
+      console.log(response.data.results[1].formatted_address);
+    }, function errorCallback() {
+      Materialize.toast('Something went wrong', 4000, 'red-text');
     });
   };
 

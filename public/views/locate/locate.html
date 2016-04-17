@@ -1,0 +1,32 @@
+<main ng-init="init()">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="center-align">
+          Locating...</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <h4 ng-if="!error" class="center-align">Please allow GeoChat to access your location so that we may add you to a chat room with users near you.
+        </h4>
+      </div>
+      <div ng-if="!error" class="row">
+        <div class="col s8 offset-s2">
+          <div class="progress">
+            <div class="indeterminate"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col s12">
+        <h4 ng-if="error" class="center-align">We weren't able to get your location, you may need to adjust your browser's location settings
+        </h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 center-align">
+        <a ng-if="error" ng-click="init()" class="waves-effect waves-light btn center-align">Retry</a>
+      </div>
+    </div>
+  </div>
+</main>

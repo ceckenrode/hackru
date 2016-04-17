@@ -1,37 +1,38 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+<main>
 
-<div class="row">
-  <div class="col-md-12">
-    <h2 class="text-center">{{room}} Discussion</h2>
-  </div>
-</div>
-
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="chat-window col-md-10" id="chat-history" schroll-bottom='messages'>
-      <ul>
-        <li ng-repeat="message in messages" id="chat-messages">
-          <span  class="usernameChat">{{message.username}}:</span>
-          <span class="messageChat">{{message.message}}</span>
-        </li>
-      </ul>
-    </div>
-    <div class="col-md-2" id="user-list">
-      <p>Number of connected users: {{users.length}}</p>
-      <ul>
-        <li ng-repeat="user in users track by $index">{{user}}</li>
-      </ul>
-      <div class="fixed"></div>
-    </div>
-  </div>
-  <form>
+  <div class="container">
     <div class="row">
-      <div class="col-md-10 text-box">
-        <input type="text" class="form-control sharp" placeholder="Enter text here..." ng-model="currentMsg">
+      <div class="col-md-12">
+        <h2 class="text-center">{{room}}
+          Discussion</h2>
       </div>
-      <div class="col-md-2 text-box">
-        <button type="submit" class="btn btn-block sharp" style="" ng-click="sendMessage()">Send Message</button>
+    </div>
+    <div class="row">
+      <div class="chat-window col-md-10" id="chat-history" schroll-bottom='messages'>
+        <ul>
+          <li ng-repeat="message in messages" id="chat-messages">
+            <span class="usernameChat">{{message.username}}:</span>
+            <span class="messageChat">{{message.message}}</span>
+          </li>
+        </ul>
       </div>
-    </form>
-  </div>
+      <div class="col-md-2" id="user-list">
+        <p>Number of connected users:
+          {{users.length}}</p>
+        <ul>
+          <li ng-repeat="user in users track by $index">{{user}}</li>
+        </ul>
+        <div class="fixed"></div>
+      </div>
+    </div>
+    <form>
+      <div class="row">
+        <div class="col-md-10 text-box">
+          <input type="text" class="form-control sharp" placeholder="Enter text here..." ng-model="currentMsg">
+        </div>
+        <div class="col-md-2 text-box">
+          <button type="submit" class="btn btn-block sharp" style="" ng-click="sendMessage()">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </main>
