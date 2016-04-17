@@ -17,7 +17,7 @@ $scope.currentMsg = '';
 
 $scope.sendMessage = function(){
       if($scope.currentMsg !== null && $scope.currentMsg !=='' && $scope.currentMsg.length <= 140) {
-        Socket.emit($scope.currentMsg, {message:$scope.currentMsg});
+        Socket.emit('message', {message:$scope.currentMsg});
         Materialize.toast('Message Sent', 4000, 'green-text');
         $scope.currentMsg = '';
       } else {
@@ -58,6 +58,7 @@ $scope.sendMessage = function(){
 
 
   Socket.on('message', function(data) {
+    
     $scope.messages.push(data);
   });
 

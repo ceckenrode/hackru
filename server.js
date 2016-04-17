@@ -72,8 +72,11 @@ io.on('connection', function(socket){
   //     users.push(data.username);
 
   socket.on('message', function(data){
+    socket.emit('message', data);
+
     console.log('got here');
     console.log(data);
+
   });
 
   });
