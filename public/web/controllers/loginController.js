@@ -1,4 +1,4 @@
-angular.module("hackru").controller('loginController', ['$scope', '$http', 'UserService', function($scope, $http, UserService) {
+angular.module("hackru").controller('loginController', ['$scope', '$http', 'UserService', '$state', function($scope, $http, UserService, $state) {
   $scope.initLogin = function() {
     $scope.email = "";
     $scope.password = "";
@@ -11,6 +11,7 @@ angular.module("hackru").controller('loginController', ['$scope', '$http', 'User
         $scope.email = $scope.password = "";
         $("#loginModal").closeModal();
         Materialize.toast("Weclome, " + response.data.username + "!", 4000, "green-text");
+        $state.go('chat')
       } else {
         $scope.credentials = {};
         return Materialize.toast("Invalid email and/or password. Please try again.", 4000, "red-text");
