@@ -1,7 +1,7 @@
 module.exports = function(app, passport) {
   var User = require('../models/userModel.js');
-
-
+  var ChatRoom = require('../models/chatRoom.js');
+  var SubRoom = require('../models/subRoom.js');
   //register and login routes====================================================================
   //register===================================================
   // app.post('/register', passport.authenticate('local-signup'),
@@ -23,7 +23,6 @@ module.exports = function(app, passport) {
   //login======================================================
   app.post('/login', passport.authenticate('local-login'),
     function(req, res) {
-      console.log('here');
       // If this function gets called, authentication was successful.
       // `req.user` contains the authenticated user.
       res.json(
