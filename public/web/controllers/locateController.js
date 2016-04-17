@@ -1,11 +1,11 @@
-angular.module('hackru').controller('locateController', ['$scope', '$http', '$state', '$stateParams', '$geolocation',
-  function($scope, $http, $state, $stateParams, $geolocation) {
+angular.module('hackru').controller('locateController', ['$scope', '$http', '$state', '$stateParams', '$geolocation', 'UserService',
+  function($scope, $http, $state, $stateParams, $geolocation, UserService) {
     $scope.init = function() {
       $geolocation.getCurrentPosition({
         timeout: 60000
       }).then(function successCallback(position) {
           var myPosition = [position.coords.latitude, position.coords.longitude];
-          console.log(myPosition)
+          console.log(myPosition);
           $scope.getLocation(myPosition);
           $state.go('chat');
         },
@@ -20,10 +20,11 @@ angular.module('hackru').controller('locateController', ['$scope', '$http', '$st
         url: '/api/findorcreateroom?location=' + location
       }).then(function successCallback(response) {
         Materialize.toast('Success!', 4000, 'green-text');
+        console.log(response.data._id);
       }, function errorCallback() {
         Materialize.toast('Something went wrong', 4000, 'red-text');
       });
-    }
+    };
 
     $scope.getLocation = function(position) {
       $http({
@@ -32,7 +33,7 @@ angular.module('hackru').controller('locateController', ['$scope', '$http', '$st
       }).then(function successCallback(response) {
         console.log(response.data.results);
         var location = response.data.results[1].formatted_address.replace(/\s/g, "_");
-        console.log(location);
+        UserService.updateLocation(location);
         $scope.findOrCreateRoom(location);
       }, function errorCallback() {
         Materialize.toast('Something went wrong', 4000, 'red-text');
