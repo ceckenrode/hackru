@@ -7,7 +7,6 @@ angular.module('hackru').controller('locateController', ['$scope', '$http', '$st
           var myPosition = [position.coords.latitude, position.coords.longitude];
           console.log(myPosition);
           $scope.getLocation(myPosition);
-          $state.go('chat');
         },
         function errorCallback() {
           $scope.error = true;
@@ -21,6 +20,8 @@ angular.module('hackru').controller('locateController', ['$scope', '$http', '$st
       }).then(function successCallback(response) {
         Materialize.toast('Success!', 4000, 'green-text');
         console.log(response.data._id);
+        var roomId = response.data._id;
+        $state.go('chat', {roomId: roomId});
       }, function errorCallback() {
         Materialize.toast('Something went wrong', 4000, 'red-text');
       });
