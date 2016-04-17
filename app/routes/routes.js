@@ -29,6 +29,16 @@ module.exports = function(app, passport) {
       );
     }
   );
+  app.get('/api/getSubRooms/:id', function(req, res) {
+    console.log(req.params.id);
+    ChatRoom.find({
+      _id: req.params.id
+    }).populate('subRooms').exec(function(err, docs) {
+      if (err) throw err;
+      res.json(docs);
+    });
+  });
+
   app.get('/api/findorcreateroom', function(req, res) {
     console.log(req.query.location);
     ChatRoom.findOne({

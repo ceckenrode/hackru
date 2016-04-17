@@ -21,7 +21,7 @@ angular.module('hackru').controller('locateController', ['$scope', '$http', '$st
         Materialize.toast('Success!', 4000, 'green-text');
         console.log(response.data._id);
         var roomId = response.data._id;
-        $state.go('chat', {roomId: roomId});
+        $state.go('chatlist', {roomId: roomId});
       }, function errorCallback() {
         Materialize.toast('Something went wrong', 4000, 'red-text');
       });
