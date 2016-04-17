@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var chatRoomSchema = new Schema({
-  zipcode: {
+  location: {
     type: String,
     unique: true
   },
@@ -12,7 +12,7 @@ var chatRoomSchema = new Schema({
   },
   subRooms: [{
     type: Schema.Types.ObjectId,
-    ref: "subRoom"
+    ref: "SubRoom"
   }]
 });
 

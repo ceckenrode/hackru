@@ -30,13 +30,30 @@ module.exports = function(app, passport) {
     }
   );
   app.get('/api/findorcreateroom', function(req, res) {
-      console.log(req.query);
-      console.log('got here')
-      res.json(
-        req.user
-      );
-    }
-  );
+    console.log(req.query.location);
+    ChatRoom.findOne({
+      'location': req.query.location
+    }, function(err, doc) {
+      if (err) {
+        req.status(404).json({
+          message: "An error occured, cannot find or create a room."
+        });
+      }
+      if (doc === null) {
+        console.log('Room does not exist, creating...');
+        var newRoom = new ChatRoom();
+        newRoom.location = req.query.location;
+        newRoom.save(function(err) {
+          if (err) throw err;
+          console.log('Created new room');
+          res.json(newRoom);
+        });
+      } else {
+        console.log(doc);
+        console.log('going into', req.query.location);
+      }
+    });
+  });
   //===============================================================================================
   app.get('/authenticate', isAuthenticated, function(req, res) {
     res.status(200).json({});
