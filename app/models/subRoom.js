@@ -14,10 +14,10 @@ var subRoomSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  parentRoom: [{
+  parentRoom: {
     type: Schema.Types.ObjectId,
     ref: "chatRoom"
-  }]
+  }
 });
 
 subRoomSchema.methods.hashTagify = function(name) {
