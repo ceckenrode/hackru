@@ -1,12 +1,25 @@
-angular.module('hackru').controller('chatController', ['$scope', 'Socket', '$stateParams', '$geolocation', function($scope, Socket, $stateParams, $geolocation) {
+angular.module('hackru').controller('chatController', ['$scope', '$http', 'Socket', '$stateParams', '$geolocation', function($scope, $http, Socket, $stateParams, $geolocation) {
   Socket.connect();
   $geolocation.getCurrentPosition({
     timeout: 60000
   }).then(function(position) {
-    $scope.myPosition = position;
-    console.log($scope.myPosition);
+    var myPosition = [position.coords.latitude, position.coords.longitude];
+    console.log(myPosition);
+    $scope.getLocation(myPosition);
   });
   $scope.users = [];
+
+  // Simple GET request example:
+  $scope.getLocation = function(position) {
+    $http({
+      method: 'GET',
+      url: 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&language=en&latlng=' +position[0]+','+ position[1]
+    }).then(function successCallback(response) {
+      console.log(response.data);
+    }, function errorCallback(response) {
+      console.log("error");
+    });
+  };
 
   $scope.messages = [];
 
