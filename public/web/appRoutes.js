@@ -15,6 +15,12 @@ angular.module("hackru").config(function($stateProvider, $urlRouterProvider, $lo
     templateUrl: 'views/chat/chat.html',
     controller: 'chatController',
     authenticate: true
+    })
+    .state('locate',{
+    url: '/locate',
+    templateUrl: 'views/locate/locate.html',
+    controller: 'locateController',
+    authenticate: true
     });
 
   $locationProvider.html5Mode(true);

@@ -16,7 +16,7 @@ var subRoomSchema = new Schema({
   },
   parentRoom: {
     type: Schema.Types.ObjectId,
-    ref: "chatRoom"
+    ref: "ChatRoom"
   }
 });
 
