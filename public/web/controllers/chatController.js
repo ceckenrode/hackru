@@ -1,4 +1,5 @@
 angular.module('hackru').controller('chatController', ['$scope', '$http', 'Socket', '$stateParams', '$geolocation', function($scope, $http, Socket, $stateParams, $geolocation) {
+  $scope.roomId = $stateParams.roomId;
   Socket.connect();
 
   $scope.messages = [];

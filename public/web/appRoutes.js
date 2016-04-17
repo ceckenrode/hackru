@@ -18,7 +18,7 @@ angular.module("hackru").config(function($stateProvider, $urlRouterProvider, $lo
     })
     .state('chat', {
       url: '/chat/:roomId/:subRoomId',
-      templateUrl: 'views/chatlist/chatlist.html',
+      templateUrl: 'views/chat/chat.html',
       controller: 'chatController',
       authenticate: true
     })

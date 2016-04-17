@@ -38,6 +38,37 @@ module.exports = function(app, passport) {
       res.json(docs);
     });
   });
+  app.post('/api/newchannel/:id', function(req, res) {
+    console.log(req.body);
+    console.log(req.params.id);
+    var subRoom = new SubRoom();
+    subRoom.name = req.body.name;
+    subRoom.save(function(err) {
+      if (err) throw err;
+      console.log('Created new subRoom');
+      res.json(subRoom);
+      ChatRoom.update({
+        _id: {
+          $eq: req.params.id
+        }
+      }, {
+        $push: {
+          "subRooms": {
+            _id: subRoom._id
+          }
+        }
+      }, function(err, result) {
+        if (err) {
+          res.json({
+            message: "Something went wrong"
+          });
+        }
+        console.log("Updated successfully");
+        console.log(result);
+      });
+    });
+
+  });
 
   app.get('/api/findorcreateroom', function(req, res) {
     console.log(req.query.location);
@@ -45,7 +76,7 @@ module.exports = function(app, passport) {
       'location': req.query.location
     }, function(err, doc) {
       if (err) {
-        req.status(404).json({
+        res.status(404).json({
           message: "An error occured, cannot find or create a room."
         });
       }

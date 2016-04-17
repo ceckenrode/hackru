@@ -12,7 +12,8 @@
           <div class="col s12">
             <ul>
               <li ng-repeat="subRoom in subRooms">
-                {{subRoom.name}}
+                <a ui-sref="chat({roomId: roomId, subRoomId: subRoom._id})">
+                  #{{subRoom.name}}</a>
               </li>
             </ul>
           </div>
