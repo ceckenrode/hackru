@@ -1,13 +1,12 @@
-angular.module('hackru').controller('locateController', ['$scope', '$http','$state', '$stateParams', '$geolocation',
+angular.module('hackru').controller('locateController', ['$scope', '$http', '$state', '$stateParams', '$geolocation',
   function($scope, $http, $state, $stateParams, $geolocation) {
     $scope.init = function() {
       $geolocation.getCurrentPosition({
         timeout: 60000
       }).then(function successCallback(position) {
           var myPosition = [position.coords.latitude, position.coords.longitude];
-          var query = 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&language=en&latlng=' + position[0] + ',' + position[1];
-          console.log(myPosition);
-          $scope.getLocation(query);
+          console.log(myPosition)
+          $scope.getLocation(myPosition);
           $state.go('chat');
         },
         function errorCallback() {
@@ -15,14 +14,26 @@ angular.module('hackru').controller('locateController', ['$scope', '$http','$sta
         });
     };
 
-
-
-    $scope.getLocation = function(query) {
+    $scope.findOrCreateRoom = function(location) {
       $http({
         method: 'GET',
-        url: query
+        url: '/api/findorcreateroom?location=' + location
       }).then(function successCallback(response) {
-        console.log(response.data.results[1].formatted_address);
+        Materialize.toast('Success!', 4000, 'green-text');
+      }, function errorCallback() {
+        Materialize.toast('Something went wrong', 4000, 'red-text');
+      });
+    }
+
+    $scope.getLocation = function(position) {
+      $http({
+        method: 'GET',
+        url: 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&language=en&latlng=' + position[0] + ',' + position[1]
+      }).then(function successCallback(response) {
+        console.log(response.data.results);
+        var location = response.data.results[1].formatted_address.replace(/\s/g, "_");
+        console.log(location);
+        $scope.findOrCreateRoom(location);
       }, function errorCallback() {
         Materialize.toast('Something went wrong', 4000, 'red-text');
       });

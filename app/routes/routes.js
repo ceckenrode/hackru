@@ -11,13 +11,12 @@ module.exports = function(app, passport) {
   //     res.json(req.user);
   //   }
   // );
-  app.post('/register',passport.authenticate('local-signup'),function(req, res) {
+  app.post('/register', passport.authenticate('local-signup'), function(req, res) {
     console.log(req.body);
-      // If this function gets called, authentication was successful.
-      // `req.user` contains the authenticated user.
-      res.json(req.user);
-    }
-  );
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    res.json(req.user);
+  });
 
 
   //login======================================================
@@ -25,6 +24,14 @@ module.exports = function(app, passport) {
     function(req, res) {
       // If this function gets called, authentication was successful.
       // `req.user` contains the authenticated user.
+      res.json(
+        req.user
+      );
+    }
+  );
+  app.get('/api/findorcreateroom', function(req, res) {
+      console.log(req.query);
+      console.log('got here')
       res.json(
         req.user
       );
