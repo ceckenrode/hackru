@@ -21,3 +21,14 @@ body {
   main {
     flex: 1 0 auto;
   }
+
+#bg {
+  background-image: url("/images/mapbg.jpg");
+}
+
+
+.btn{
+  margin-left: auto;
+  margin-right: auto;
+}
+
