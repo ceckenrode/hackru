@@ -5,22 +5,22 @@
         <p>
           <a ui-sref="chatlist({roomId:roomId})">Back To Channels</a>
         </p>
-        <h2 class="text-center">{{room}}
+        <h2 class="center-align">{{room}}
           Discussion</h2>
       </div>
     </div>
     <div class="row">
-      <div class="chat-window col-md-10" id="chat-history" schroll-bottom='messages'>
-        <ul>
+      <div class="chat-window col s4 offset-s5" id="chat-history" schroll-bottom='messages'>
+        <ul class="left-align">
           <li ng-repeat="chat in subRoom.chats" id="chat-messages">
-            <span class="usernameChat">{{chat.username}}:</span>
+            <span class="usernameChat"><strong>{{chat.user}}</strong>:</span>
             <span class="messageChat">{{chat.message}}</span>
           </li>
         </ul>
       </div>
       <div class="col-md-2" id="user-list">
-        <p>Number of connected users:
-          {{users.length}}</p>
+        <!-- <p>Number of connected users:
+          {{users.length}}</p> -->
         <ul>
           <li ng-repeat="user in users track by $index">{{user}}</li>
         </ul>

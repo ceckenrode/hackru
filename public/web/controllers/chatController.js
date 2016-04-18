@@ -1,6 +1,68 @@
-angular.module('hackru').controller('chatController', ['$scope', '$http', 'Socket', '$stateParams', '$geolocation', function($scope, $http, Socket, $stateParams, $geolocation) {
+angular.module('hackru').controller('chatController', ['$scope', '$http', 'Socket', '$stateParams', '$geolocation', 'UserService', function($scope, $http, Socket, $stateParams, $geolocation, UserService) {
+  Socket.connect();
   $scope.init = function() {
+    $scope.user = UserService.currentUser();
+
+    $scope.currentMsg = '';
     $scope.roomId = $stateParams.roomId;
+    $http({
+      method: 'GET',
+      url: '/api/getSubRoom/' + $stateParams.subRoomId
+    }).then(function successCallback(response) {
+      console.log($stateParams.subRoomId);
+      $scope.subRoom = response.data;
+      console.log($scope.subRoom);
+    }, function errorCallback() {
+      Materialize.toast('Something went wrong', 4000, 'red-text');
+    });
+  };
+
+  $scope.updateScroll = function() {
+    var element = document.getElementById("chat-history");
+    element.scrollTop = element.scrollHeight - 20;
+  };
+
+
+
+  $scope.messages = [];
+
+
+
+
+  $scope.sendMessage = function() {
+    if ($scope.currentMsg !== null && $scope.currentMsg !== '' && $scope.currentMsg.length <= 140) {
+      var message = {
+        user: $scope.user.username,
+        message: $scope.currentMsg,
+        room: $stateParams.subRoomId
+      };
+      Socket.emit('message', message);
+      Materialize.toast('Message Sent', 4000, 'green-text');
+      $scope.currentMsg = '';
+    } else {
+      Materialize.toast('Something went wrong', 4000, 'red-text');
+      $scope.currentMsg = '';
+    }
+  };
+
+  Socket.on('update', function(data) {
+    console.log('message');
+    $http({
+      method: 'GET',
+      url: '/api/getSubRoom/' + $stateParams.subRoomId
+    }).then(function successCallback(response) {
+      console.log($stateParams.subRoomId);
+      $scope.subRoom = response.data;
+      $scope.updateScroll();
+    }, function errorCallback() {
+      Materialize.toast('Something went wrong', 4000, 'red-text');
+    });
+  });
+
+
+
+  Socket.on('message', function(data) {
+    console.log('message');
     $http({
       method: 'GET',
       url: '/api/getSubRoom/' + $stateParams.subRoomId
@@ -10,43 +72,6 @@ angular.module('hackru').controller('chatController', ['$scope', '$http', 'Socke
     }, function errorCallback() {
       Materialize.toast('Something went wrong', 4000, 'red-text');
     });
-  };
-
-  Socket.connect();
-
-  $scope.messages = [];
-
-
-  $scope.currentMsg = '';
-
-  $scope.sendMessage = function() {
-    if ($scope.currentMsg !== null && $scope.currentMsg !== '' && $scope.currentMsg.length <= 140) {
-      Socket.emit('message', {
-        message: $scope.currentMsg
-      });
-      Materialize.toast('Message Sent', 4000, 'green-text');
-      $scope.currentMsg = '';
-    } else {
-      Materialize.toast('Something went wrong', 4000, 'red-text');
-    }
-    $scope.currentMsg = '';
-
-  };
-
-
-  Socket.emit('request-users', {});
-
-
-
-  Socket.on('users', function(data) {
-    $scope.users = data.users;
-  });
-
-
-
-  Socket.on('message', function(data) {
-
-    $scope.messages.push(data);
   });
 
   Socket.on('add-user', function(data) {

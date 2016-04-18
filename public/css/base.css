@@ -32,3 +32,9 @@ body {
   margin-right: auto;
 }
 
+.chat-window {
+  overflow: scroll;
+  height: 440px;
+  width: 800px;
+  padding: 0px;
+}

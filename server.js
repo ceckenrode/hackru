@@ -13,6 +13,7 @@ var db = require('./config/db');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var router = express.Router();
+var SubRoom = require('./app/models/subRoom.js');
 
 
 
@@ -43,61 +44,39 @@ app.use(passport.session()); // persistent login sessions
 
 
 // socket =======================================================================
-io.on('connection', function(socket){
-// console.log(socket);
+io.on('connection', function(socket) {
+  // console.log(socket);
 
-  var users = [];
-  var username = '';
-  var room = '';
   console.log('a user has connected');
 
-
-  // socket.on('join-room', function(data){
-  //   socket.join(data.room);
-  //   room = data.room;
-  // });
-
-
-  // socket.on('request-users', function(){
-  //   socket.to(room).emit('users', {users: users});
-  //   console.log(users);
-  // });
-
-  // socket.on('add-user', function(data){
-
-  //     io.to(room).emit('add-user', {
-  //       username: data.username
-  //     });
-  //     username = data.username;
-  //     users.push(data.username);
-
-  socket.on('message', function(data){
-    socket.emit('message', data);
-
-    console.log('got here');
+  socket.on('message', function(data) {
     console.log(data);
+    SubRoom.update({
+      _id: {
+        $eq: data.room
+      }
+    }, {
+      $push: {
+        "chats": {
+          user: data.user,
+          message: data.message
+        }
+      }
+    }, function(err, result) {
+      if (err) {
+        res.json({
+          message: "Something went wrong"
+        });
+      }
+      console.log("Updated successfully");
+      socket.emit('update', {message: "Updated"});
+      console.log(result);
+    });
 
   });
 
-  });
+});
 
-
-    // io.to(room).emit('message', {username: username, message: data.message});
-
-    // var newMessage = new Message({message: data.message, username: username, created: Date.now()});
-    // console.log(newMessage);
-
-  //   newMessage.save(function(err){
-  //     if (err) throw err;
-  //     console.log('new message saved');
-  //   });
-  // 
-//   socket.on('disconnect', function(data){
-//     console.log(username + ' has disconnected');
-//     users.splice(users.indexOf(username), 1);
-//     io.to(room).emit('remove-user', {username: username});
-//   });
-// });
 
 // routes ===========================================================================
 

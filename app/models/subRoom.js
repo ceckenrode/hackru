@@ -7,8 +7,8 @@ var subRoomSchema = new Schema({
     required: true
   },
   chats: [{
-    type: String,
-    unique: true
+    user: String,
+    message: String
   }],
   dateCreated: {
     type: Date,

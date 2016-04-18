@@ -46,7 +46,6 @@ module.exports = function(app, passport) {
       if (err){
         res.json({message: "An error has occured."});
       }
-      console.log('here');
       res.json(doc);
     });
   });
